@@ -1,10 +1,12 @@
 {
-  "name": "react-js-cron",
-  "version": "2.1.0",
-  "description": "A React cron editor with antd inspired by jqCron",
-  "author": "Xavier Rutayisire <xavier.rutayisire@gmail.com> (https://github.com/xrutayisire/)",
+  "private": false,
+  "name": "jst-react-cron",
+  "version": "0.0.1",
+  "description": "聚水潭Cron表达式订制版",
+  "author": "ziye",
   "license": "MIT",
   "keywords": [
+    "jst",
     "react",
     "reactjs",
     "js",
@@ -19,14 +21,7 @@
     "schedule",
     "parser"
   ],
-  "homepage": "https://github.com/xrutayisire/react-js-cron#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xrutayisire/react-js-cron.git"
-  },
-  "bugs": {
-    "url": "https://github.com/xrutayisire/react-js-cron/issues"
-  },
+  "homepage": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -75,7 +70,7 @@
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
-    "antd": "4.21.3",
+    "jst-components": "1.0.20",
     "babel-loader": "8.2.5",
     "babel-plugin-react-remove-properties": "0.3.0",
     "babel-plugin-transform-es2015-modules-umd": "6.24.1",
