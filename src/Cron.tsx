@@ -211,26 +211,26 @@ export default function Cron(props: CronProps) {
       // When clearButtonAction is 'empty'
       let newValue = ''
 
-      console.log('清空cron表达式')
+      // console.log('清空cron表达式')
 
-      ConfigProvider.config({
-        theme: {
-          primaryColor: '#3D7FFF',
+      // ConfigProvider.config({
+      //   theme: {
+      //     primaryColor: '#3D7FFF',
 
-          successColor: '#00B42A',
-          warningColor: '#FF7D00',
-          errorColor: '#F53F3F',
-        },
-      })
+      //     successColor: '#00B42A',
+      //     warningColor: '#FF7D00',
+      //     errorColor: '#F53F3F',
+      //   },
+      // })
 
-      AntdConfigProvider.config({
-        theme: {
-          primaryColor: '#3D7FFF',
-          successColor: '#00B42A',
-          warningColor: '#FF7D00',
-          errorColor: '#F53F3F',
-        },
-      })
+      // AntdConfigProvider.config({
+      //   theme: {
+      //     primaryColor: '#3D7FFF',
+      //     successColor: '#00B42A',
+      //     warningColor: '#FF7D00',
+      //     errorColor: '#F53F3F',
+      //   },
+      // })
 
       const newPeriod =
         period !== 'reboot' && period ? period : defaultPeriodRef.current

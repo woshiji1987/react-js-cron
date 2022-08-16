@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "jst-react-cron",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "聚水潭Cron表达式订制版",
   "author": "ziye",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "build:babel:esm": "BABEL_ENV=esm babel --extensions \".ts,.tsx\" --copy-files src --out-dir dist/esm",
     "build:types": "tsc",
     "build:styles": "cp dist/cjs/styles.css dist/",
-    "storybook": "start-storybook -p 9023",
+    "storybook": "start-storybook -p 9025",
     "build-storybook": "build-storybook -o docs",
     "lint": "eslint --fix 'src/**/*.ts?(x)'",
     "prettier": "prettier --write 'src/**/*.{ts?(x),css}'",
