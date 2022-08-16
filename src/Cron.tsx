@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
-import { Button, ConfigProvider } from 'jst-components'
-import { ConfigProvider as AntdConfigProvider } from 'antd'
+import { Button, ConfigProvider } from 'antd'
 // import './index.less'
 import { CronProps, PeriodType } from './types'
 import Period from './fields/Period'
@@ -75,39 +74,22 @@ export default function Cron(props: CronProps) {
   const localeJSON = JSON.stringify(locale)
 
   useEffect(() => {
-    ConfigProvider.config({
-      theme: {
-        primaryColor: '#3D7FFF',
-        // linkColor: '#3D7FFF',
-        successColor: '#00B42A',
-        warningColor: '#FF7D00',
-        errorColor: '#F53F3F',
-        // textColor: '#1D2129', //"rgba(0, 0, 0, 0.65)",
-        // textColorSecondary: '#868D9C', // "rgba(0, 0, 0, 0.45)"
-        // disabledColor: '#868D9C', //''#C9CDD4', // "rgba(0, 0, 0, 0.25)"
-        // disabledBg: '#ECF0F4',
-        // borderColorBase: '#D5D9E0', // "#86909C", #d9d9d9, #D5D9E0
-        // inputPlaceholderColor: '#868D9C',
-        // borderRadiusBase: '4px',
-      },
-    })
-
-    AntdConfigProvider.config({
-      theme: {
-        primaryColor: '#3D7FFF',
-        // linkColor: '#3D7FFF',
-        successColor: '#00B42A',
-        warningColor: '#FF7D00',
-        errorColor: '#F53F3F',
-        // textColor: '#1D2129', //"rgba(0, 0, 0, 0.65)",
-        // textColorSecondary: '#868D9C', // "rgba(0, 0, 0, 0.45)"
-        // disabledColor: '#868D9C', //''#C9CDD4', // "rgba(0, 0, 0, 0.25)"
-        // disabledBg: '#ECF0F4',
-        // borderColorBase: '#D5D9E0', // "#86909C", #d9d9d9, #D5D9E0
-        // inputPlaceholderColor: '#868D9C',
-        // borderRadiusBase: '4px',
-      },
-    })
+    // ConfigProvider.config({
+    //   theme: {
+    //     primaryColor: '#3D7FFF',
+    //     // linkColor: '#3D7FFF',
+    //     successColor: '#00B42A',
+    //     warningColor: '#FF7D00',
+    //     errorColor: '#F53F3F',
+    //     // textColor: '#1D2129', //"rgba(0, 0, 0, 0.65)",
+    //     // textColorSecondary: '#868D9C', // "rgba(0, 0, 0, 0.45)"
+    //     // disabledColor: '#868D9C', //''#C9CDD4', // "rgba(0, 0, 0, 0.25)"
+    //     // disabledBg: '#ECF0F4',
+    //     // borderColorBase: '#D5D9E0', // "#86909C", #d9d9d9, #D5D9E0
+    //     // inputPlaceholderColor: '#868D9C',
+    //     // borderRadiusBase: '4px',
+    //   },
+    // })
   }, [])
 
   useEffect(

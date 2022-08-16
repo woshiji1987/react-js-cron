@@ -71,7 +71,7 @@
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
-    "jst-components": "1.0.20",
+    "antd": "4.21.1",
     "babel-loader": "8.2.5",
     "babel-plugin-react-remove-properties": "0.3.0",
     "babel-plugin-transform-es2015-modules-umd": "6.24.1",
