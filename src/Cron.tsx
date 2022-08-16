@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
-import { Button, ConfigProvider } from 'antd'
+import Button from 'antd/lib/button'
 // import './index.less'
 import { CronProps, PeriodType } from './types'
 import Period from './fields/Period'
@@ -314,118 +314,116 @@ export default function Cron(props: CronProps) {
   const periodForRender = period || defaultPeriodRef.current
 
   return (
-    <ConfigProvider>
-      <div className={internalClassName}>
-        {allowedDropdowns.includes('period') && (
-          <Period
-            value={periodForRender}
-            setValue={setPeriod}
-            locale={locale}
-            className={className}
-            disabled={disabled}
-            readOnly={readOnly}
-            shortcuts={shortcuts}
-            allowedPeriods={allowedPeriods}
-          />
-        )}
+    <div className={internalClassName}>
+      {allowedDropdowns.includes('period') && (
+        <Period
+          value={periodForRender}
+          setValue={setPeriod}
+          locale={locale}
+          className={className}
+          disabled={disabled}
+          readOnly={readOnly}
+          shortcuts={shortcuts}
+          allowedPeriods={allowedPeriods}
+        />
+      )}
 
-        {periodForRender === 'reboot' ? (
-          clearButtonNode
-        ) : (
-          <>
-            {periodForRender === 'year' &&
-              allowedDropdowns.includes('months') && (
-                <Months
-                  value={months}
-                  setValue={setMonths}
+      {periodForRender === 'reboot' ? (
+        clearButtonNode
+      ) : (
+        <>
+          {periodForRender === 'year' &&
+            allowedDropdowns.includes('months') && (
+              <Months
+                value={months}
+                setValue={setMonths}
+                locale={locale}
+                className={className}
+                humanizeLabels={humanizeLabels}
+                disabled={disabled}
+                readOnly={readOnly}
+                period={periodForRender}
+                periodicityOnDoubleClick={periodicityOnDoubleClick}
+                mode={mode}
+              />
+            )}
+
+          {(periodForRender === 'year' || periodForRender === 'month') &&
+            allowedDropdowns.includes('month-days') && (
+              <MonthDays
+                value={monthDays}
+                setValue={setMonthDays}
+                locale={locale}
+                className={className}
+                weekDays={weekDays}
+                disabled={disabled}
+                readOnly={readOnly}
+                leadingZero={leadingZero}
+                period={periodForRender}
+                periodicityOnDoubleClick={periodicityOnDoubleClick}
+                mode={mode}
+              />
+            )}
+
+          {(periodForRender === 'year' ||
+            periodForRender === 'month' ||
+            periodForRender === 'week') &&
+            allowedDropdowns.includes('week-days') && (
+              <WeekDays
+                value={weekDays}
+                setValue={setWeekDays}
+                locale={locale}
+                className={className}
+                humanizeLabels={humanizeLabels}
+                monthDays={monthDays}
+                disabled={disabled}
+                readOnly={readOnly}
+                period={periodForRender}
+                periodicityOnDoubleClick={periodicityOnDoubleClick}
+                mode={mode}
+              />
+            )}
+
+          <div>
+            {periodForRender !== 'minute' &&
+              periodForRender !== 'hour' &&
+              allowedDropdowns.includes('hours') && (
+                <Hours
+                  value={hours}
+                  setValue={setHours}
                   locale={locale}
                   className={className}
-                  humanizeLabels={humanizeLabels}
-                  disabled={disabled}
-                  readOnly={readOnly}
-                  period={periodForRender}
-                  periodicityOnDoubleClick={periodicityOnDoubleClick}
-                  mode={mode}
-                />
-              )}
-
-            {(periodForRender === 'year' || periodForRender === 'month') &&
-              allowedDropdowns.includes('month-days') && (
-                <MonthDays
-                  value={monthDays}
-                  setValue={setMonthDays}
-                  locale={locale}
-                  className={className}
-                  weekDays={weekDays}
                   disabled={disabled}
                   readOnly={readOnly}
                   leadingZero={leadingZero}
+                  clockFormat={clockFormat}
                   period={periodForRender}
                   periodicityOnDoubleClick={periodicityOnDoubleClick}
                   mode={mode}
                 />
               )}
 
-            {(periodForRender === 'year' ||
-              periodForRender === 'month' ||
-              periodForRender === 'week') &&
-              allowedDropdowns.includes('week-days') && (
-                <WeekDays
-                  value={weekDays}
-                  setValue={setWeekDays}
+            {periodForRender !== 'minute' &&
+              allowedDropdowns.includes('minutes') && (
+                <Minutes
+                  value={minutes}
+                  setValue={setMinutes}
                   locale={locale}
+                  period={periodForRender}
                   className={className}
-                  humanizeLabels={humanizeLabels}
-                  monthDays={monthDays}
                   disabled={disabled}
                   readOnly={readOnly}
-                  period={periodForRender}
+                  leadingZero={leadingZero}
+                  clockFormat={clockFormat}
                   periodicityOnDoubleClick={periodicityOnDoubleClick}
                   mode={mode}
                 />
               )}
 
-            <div>
-              {periodForRender !== 'minute' &&
-                periodForRender !== 'hour' &&
-                allowedDropdowns.includes('hours') && (
-                  <Hours
-                    value={hours}
-                    setValue={setHours}
-                    locale={locale}
-                    className={className}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    leadingZero={leadingZero}
-                    clockFormat={clockFormat}
-                    period={periodForRender}
-                    periodicityOnDoubleClick={periodicityOnDoubleClick}
-                    mode={mode}
-                  />
-                )}
-
-              {periodForRender !== 'minute' &&
-                allowedDropdowns.includes('minutes') && (
-                  <Minutes
-                    value={minutes}
-                    setValue={setMinutes}
-                    locale={locale}
-                    period={periodForRender}
-                    className={className}
-                    disabled={disabled}
-                    readOnly={readOnly}
-                    leadingZero={leadingZero}
-                    clockFormat={clockFormat}
-                    periodicityOnDoubleClick={periodicityOnDoubleClick}
-                    mode={mode}
-                  />
-                )}
-
-              {clearButtonNode}
-            </div>
-          </>
-        )}
-      </div>
-    </ConfigProvider>
+            {clearButtonNode}
+          </div>
+        </>
+      )}
+    </div>
   )
 }
