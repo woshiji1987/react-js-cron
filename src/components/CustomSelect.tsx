@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useRef } from 'react'
-import Select from 'antd/lib/select'
+import { Select } from 'jst-components'
 
 import { CustomSelectProps, Clicks } from '../types'
 import { DEFAULT_LOCALE_EN } from '../locale'

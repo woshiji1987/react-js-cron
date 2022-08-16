@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
-import Select, { BaseOptionType } from 'antd/lib/select'
+import { Select } from 'jst-components'
+import { BaseOptionType } from 'antd/lib/select'
 
 import { PeriodProps, PeriodType } from '../types'
 import { DEFAULT_LOCALE_EN } from '../locale'

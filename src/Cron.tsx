@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react'
-import Button from 'antd/lib/button'
-
+import { Button, ConfigProvider } from 'jst-components'
+import { ConfigProvider as AntdConfigProvider } from 'antd'
+// import './index.less'
 import { CronProps, PeriodType } from './types'
 import Period from './fields/Period'
 import MonthDays from './fields/MonthDays'
@@ -9,7 +10,7 @@ import Hours from './fields/Hours'
 import Minutes from './fields/Minutes'
 import WeekDays from './fields/WeekDays'
 import { classNames, setError, usePrevious } from './utils'
-import { DEFAULT_LOCALE_EN } from './locale'
+import { DEFAULT_LOCALE_EN, LOCALE_CN } from './locale'
 import { setValuesFromCronString, getCronStringFromValues } from './converter'
 
 export default function Cron(props: CronProps) {
@@ -17,7 +18,7 @@ export default function Cron(props: CronProps) {
     clearButton = true,
     clearButtonProps = {},
     clearButtonAction = 'fill-with-every',
-    locale = DEFAULT_LOCALE_EN,
+    locale = LOCALE_CN,
     value = '',
     setValue,
     displayError = true,
@@ -72,6 +73,42 @@ export default function Cron(props: CronProps) {
   const [valueCleared, setValueCleared] = useState<boolean>(false)
   const previousValueCleared = usePrevious(valueCleared)
   const localeJSON = JSON.stringify(locale)
+
+  useEffect(() => {
+    ConfigProvider.config({
+      theme: {
+        primaryColor: '#3D7FFF',
+        // linkColor: '#3D7FFF',
+        successColor: '#00B42A',
+        warningColor: '#FF7D00',
+        errorColor: '#F53F3F',
+        // textColor: '#1D2129', //"rgba(0, 0, 0, 0.65)",
+        // textColorSecondary: '#868D9C', // "rgba(0, 0, 0, 0.45)"
+        // disabledColor: '#868D9C', //''#C9CDD4', // "rgba(0, 0, 0, 0.25)"
+        // disabledBg: '#ECF0F4',
+        // borderColorBase: '#D5D9E0', // "#86909C", #d9d9d9, #D5D9E0
+        // inputPlaceholderColor: '#868D9C',
+        // borderRadiusBase: '4px',
+      },
+    })
+
+    AntdConfigProvider.config({
+      theme: {
+        primaryColor: '#3D7FFF',
+        // linkColor: '#3D7FFF',
+        successColor: '#00B42A',
+        warningColor: '#FF7D00',
+        errorColor: '#F53F3F',
+        // textColor: '#1D2129', //"rgba(0, 0, 0, 0.65)",
+        // textColorSecondary: '#868D9C', // "rgba(0, 0, 0, 0.45)"
+        // disabledColor: '#868D9C', //''#C9CDD4', // "rgba(0, 0, 0, 0.25)"
+        // disabledBg: '#ECF0F4',
+        // borderColorBase: '#D5D9E0', // "#86909C", #d9d9d9, #D5D9E0
+        // inputPlaceholderColor: '#868D9C',
+        // borderRadiusBase: '4px',
+      },
+    })
+  }, [])
 
   useEffect(
     () => {
@@ -174,6 +211,27 @@ export default function Cron(props: CronProps) {
       // When clearButtonAction is 'empty'
       let newValue = ''
 
+      console.log('清空cron表达式')
+
+      ConfigProvider.config({
+        theme: {
+          primaryColor: '#3D7FFF',
+
+          successColor: '#00B42A',
+          warningColor: '#FF7D00',
+          errorColor: '#F53F3F',
+        },
+      })
+
+      AntdConfigProvider.config({
+        theme: {
+          primaryColor: '#3D7FFF',
+          successColor: '#00B42A',
+          warningColor: '#FF7D00',
+          errorColor: '#F53F3F',
+        },
+      })
+
       const newPeriod =
         period !== 'reboot' && period ? period : defaultPeriodRef.current
 
@@ -246,7 +304,7 @@ export default function Cron(props: CronProps) {
         return (
           <Button
             className={clearButtonClassName}
-            danger
+            // danger
             type='primary'
             disabled={disabled}
             {...otherClearButtonProps}
@@ -274,116 +332,118 @@ export default function Cron(props: CronProps) {
   const periodForRender = period || defaultPeriodRef.current
 
   return (
-    <div className={internalClassName}>
-      {allowedDropdowns.includes('period') && (
-        <Period
-          value={periodForRender}
-          setValue={setPeriod}
-          locale={locale}
-          className={className}
-          disabled={disabled}
-          readOnly={readOnly}
-          shortcuts={shortcuts}
-          allowedPeriods={allowedPeriods}
-        />
-      )}
+    <ConfigProvider>
+      <div className={internalClassName}>
+        {allowedDropdowns.includes('period') && (
+          <Period
+            value={periodForRender}
+            setValue={setPeriod}
+            locale={locale}
+            className={className}
+            disabled={disabled}
+            readOnly={readOnly}
+            shortcuts={shortcuts}
+            allowedPeriods={allowedPeriods}
+          />
+        )}
 
-      {periodForRender === 'reboot' ? (
-        clearButtonNode
-      ) : (
-        <>
-          {periodForRender === 'year' &&
-            allowedDropdowns.includes('months') && (
-              <Months
-                value={months}
-                setValue={setMonths}
-                locale={locale}
-                className={className}
-                humanizeLabels={humanizeLabels}
-                disabled={disabled}
-                readOnly={readOnly}
-                period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
-              />
-            )}
-
-          {(periodForRender === 'year' || periodForRender === 'month') &&
-            allowedDropdowns.includes('month-days') && (
-              <MonthDays
-                value={monthDays}
-                setValue={setMonthDays}
-                locale={locale}
-                className={className}
-                weekDays={weekDays}
-                disabled={disabled}
-                readOnly={readOnly}
-                leadingZero={leadingZero}
-                period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
-              />
-            )}
-
-          {(periodForRender === 'year' ||
-            periodForRender === 'month' ||
-            periodForRender === 'week') &&
-            allowedDropdowns.includes('week-days') && (
-              <WeekDays
-                value={weekDays}
-                setValue={setWeekDays}
-                locale={locale}
-                className={className}
-                humanizeLabels={humanizeLabels}
-                monthDays={monthDays}
-                disabled={disabled}
-                readOnly={readOnly}
-                period={periodForRender}
-                periodicityOnDoubleClick={periodicityOnDoubleClick}
-                mode={mode}
-              />
-            )}
-
-          <div>
-            {periodForRender !== 'minute' &&
-              periodForRender !== 'hour' &&
-              allowedDropdowns.includes('hours') && (
-                <Hours
-                  value={hours}
-                  setValue={setHours}
+        {periodForRender === 'reboot' ? (
+          clearButtonNode
+        ) : (
+          <>
+            {periodForRender === 'year' &&
+              allowedDropdowns.includes('months') && (
+                <Months
+                  value={months}
+                  setValue={setMonths}
                   locale={locale}
                   className={className}
+                  humanizeLabels={humanizeLabels}
                   disabled={disabled}
                   readOnly={readOnly}
-                  leadingZero={leadingZero}
-                  clockFormat={clockFormat}
                   period={periodForRender}
                   periodicityOnDoubleClick={periodicityOnDoubleClick}
                   mode={mode}
                 />
               )}
 
-            {periodForRender !== 'minute' &&
-              allowedDropdowns.includes('minutes') && (
-                <Minutes
-                  value={minutes}
-                  setValue={setMinutes}
+            {(periodForRender === 'year' || periodForRender === 'month') &&
+              allowedDropdowns.includes('month-days') && (
+                <MonthDays
+                  value={monthDays}
+                  setValue={setMonthDays}
                   locale={locale}
-                  period={periodForRender}
                   className={className}
+                  weekDays={weekDays}
                   disabled={disabled}
                   readOnly={readOnly}
                   leadingZero={leadingZero}
-                  clockFormat={clockFormat}
+                  period={periodForRender}
                   periodicityOnDoubleClick={periodicityOnDoubleClick}
                   mode={mode}
                 />
               )}
 
-            {clearButtonNode}
-          </div>
-        </>
-      )}
-    </div>
+            {(periodForRender === 'year' ||
+              periodForRender === 'month' ||
+              periodForRender === 'week') &&
+              allowedDropdowns.includes('week-days') && (
+                <WeekDays
+                  value={weekDays}
+                  setValue={setWeekDays}
+                  locale={locale}
+                  className={className}
+                  humanizeLabels={humanizeLabels}
+                  monthDays={monthDays}
+                  disabled={disabled}
+                  readOnly={readOnly}
+                  period={periodForRender}
+                  periodicityOnDoubleClick={periodicityOnDoubleClick}
+                  mode={mode}
+                />
+              )}
+
+            <div>
+              {periodForRender !== 'minute' &&
+                periodForRender !== 'hour' &&
+                allowedDropdowns.includes('hours') && (
+                  <Hours
+                    value={hours}
+                    setValue={setHours}
+                    locale={locale}
+                    className={className}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    leadingZero={leadingZero}
+                    clockFormat={clockFormat}
+                    period={periodForRender}
+                    periodicityOnDoubleClick={periodicityOnDoubleClick}
+                    mode={mode}
+                  />
+                )}
+
+              {periodForRender !== 'minute' &&
+                allowedDropdowns.includes('minutes') && (
+                  <Minutes
+                    value={minutes}
+                    setValue={setMinutes}
+                    locale={locale}
+                    period={periodForRender}
+                    className={className}
+                    disabled={disabled}
+                    readOnly={readOnly}
+                    leadingZero={leadingZero}
+                    clockFormat={clockFormat}
+                    periodicityOnDoubleClick={periodicityOnDoubleClick}
+                    mode={mode}
+                  />
+                )}
+
+              {clearButtonNode}
+            </div>
+          </>
+        )}
+      </div>
+    </ConfigProvider>
   )
 }

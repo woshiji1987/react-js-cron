@@ -32,7 +32,7 @@
     "build:babel:esm": "BABEL_ENV=esm babel --extensions \".ts,.tsx\" --copy-files src --out-dir dist/esm",
     "build:types": "tsc",
     "build:styles": "cp dist/cjs/styles.css dist/",
-    "storybook": "start-storybook -p 9009",
+    "storybook": "start-storybook -p 9023",
     "build-storybook": "build-storybook -o docs",
     "lint": "eslint --fix 'src/**/*.ts?(x)'",
     "prettier": "prettier --write 'src/**/*.{ts?(x),css}'",
@@ -45,7 +45,8 @@
   "peerDependencies": {
     "antd": ">=4.6.0",
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "webpack": "*"
   },
   "devDependencies": {
     "@ant-design/icons": "4.7.0",
